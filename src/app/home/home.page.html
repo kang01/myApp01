@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ko-stage [config]="configStage">
+    <ko-layer>
+      <ko-circle [config]="configCircle" (click)="handleClick($event)"></ko-circle>
+      <ko-image [config]="configImage"></ko-image>
+    </ko-layer>
+  </ko-stage>
+   
+
+  <!-- fab placed to the bottom start -->
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="arrow-dropup"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button>F1</ion-fab-button>
+      <ion-fab-button>F2</ion-fab-button>
+      <ion-fab-button>F3</ion-fab-button>
+      <ion-fab-button>F4</ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
