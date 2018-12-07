@@ -4,4 +4,26 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+  <ngx-gauge [type]="gaugeType" 
+           [value]="gaugeValue" 
+           [append]="gaugeAppendText">
+</ngx-gauge>
+
+<!-- <jqxBarGauge 
+    [width]="600" [height]="600" [max]="150" 
+    [colorScheme]="'scheme02'" [values]="values">
+</jqxBarGauge> -->
+
+<ko-stage #stage1 [config]="configStage1"> 
+    <ko-layer #layer>
+        <ko-star *ngFor="let item of list"
+        [config]="item">
+        </ko-star>
+    </ko-layer>
+    <ko-layer #dragLayer></ko-layer>
+</ko-stage> 
+
+<button class="" log-on-click>Click me</button>
+<h2 greet>Hello, Angular</h2>
+</ion-content>
