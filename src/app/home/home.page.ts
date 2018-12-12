@@ -7,7 +7,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service'
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { EquipmentDetailModalComponent } from './modal/equipment.detail.modal.component';
-
+import * as $ from 'jquery'   
 
 
 declare const Konva: any;
@@ -227,7 +227,7 @@ export class HomePage {
         this.topFlag = !this.topFlag;
     }
     onModalLayerHandler(e){
-        console.log(e.target);
+        console.log($(e.target));
         this.layerShowFlag = true;
     }
     openModal(template: TemplateRef<any>) {
