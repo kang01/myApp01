@@ -15,15 +15,29 @@
     [colorScheme]="'scheme02'" [values]="values">
 </jqxBarGauge> -->
 
-<ko-stage #stage1 [config]="configStage1"> 
+<!-- <ko-stage #stage1 [config]="configStage1"> 
     <ko-layer #layer>
         <ko-star *ngFor="let item of list"
         [config]="item">
         </ko-star>
     </ko-layer>
     <ko-layer #dragLayer></ko-layer>
-</ko-stage> 
+</ko-stage>  -->
 
-<button class="" log-on-click>Click me</button>
 <h2 greet>Hello, Angular</h2>
-</ion-content>
+
+<button type="button" class="btn btn-primary" (click)="openModal(template)">Create template modal</button>
+<button type="button" class="btn btn-primary" (click)="openModalWithComponent()">Create template modal</button>
+ 
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    This is a modal.
+  </div>
+</ng-template>
+

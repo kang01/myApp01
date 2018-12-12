@@ -7,6 +7,9 @@ import { AboutPage } from './about.page';
 import { NgxGaugeModule } from 'ngx-gauge';
 import { KonvaModule } from 'ng2-konva';
 import { KonvaImageDirective } from '../services/konva.self.image.directive';
+import { ModalModule } from 'ngx-bootstrap';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { EquipmentDetailModalComponent } from '../home/modal/equipment.detail.modal.component';
 
 @NgModule({
   imports: [
@@ -15,8 +18,13 @@ import { KonvaImageDirective } from '../services/konva.self.image.directive';
     FormsModule,
     RouterModule.forChild([{ path: '', component: AboutPage }]),
     NgxGaugeModule,
-    KonvaModule
+    KonvaModule,
+    ModalModule,
+    NgbModule
   ],
-  declarations: [AboutPage,KonvaImageDirective]
+  declarations: [AboutPage,KonvaImageDirective],
+  entryComponents: [
+    EquipmentDetailModalComponent
+  ]
 })
 export class AboutPageModule {}

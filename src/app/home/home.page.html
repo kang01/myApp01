@@ -3,10 +3,9 @@
     <ion-title>样本库 - {{selectedFloor}}</ion-title>
   </ion-toolbar>
 </ion-header>
-<!-- *ngFor="let item of list;let i = index" -->
 <ion-content>
   
-  <div id="container" style="background-color:#2A373F;" zooming="true" min-zoom="1" max-zoom="2" overflow-scroll="false"></div>
+  <div id="container" style="background-color:#2A373F;"></div>
   <!-- <ion-button id="basic" expand="block" (click)="presentAlert()">Alert</ion-button> -->
 
   <!-- fab placed to the bottom start -->
@@ -21,47 +20,68 @@
       <ion-fab-button>F4</ion-fab-button>
     </ion-fab-list> 
   </ion-fab> -->
-  <ion-virtual-scroll  direction="xy" class="msg-file" style="height:100%" zooming="true" min-zoom="1" max-zoom="2" overflow-scroll="false">
+  <!-- <ion-virtual-scroll  direction="xy" class="msg-file" style="height:100%" zooming="true" min-zoom="1" max-zoom="2" overflow-scroll="false">
       <img ng-src="/assets/images/aaaa.png" class="msg-file"/>
-    </ion-virtual-scroll>
+    </ion-virtual-scroll> -->
   </ion-content>
   <div class="content-page">
       <div class="floor-show">
           <ul>
-            
             <li (click)="selectFloor(item.name)" [ngClass]="{'color2': item.name === selectedFloor}" *ngFor="let item of floors">
               <h4 class="text-center">{{item.name}}</h4>
             </li>
           </ul>
-        </div>
-        <div class="info-show">
-         <h4 class="color2 ml-20 mt-20">Summary</h4>
-         <div class="row mt-45">
+      </div>
+      <div class="info-show" [ngStyle]="{'bottom': topFlag ? '-240px': '40px'}">
+        <h4 class="color2 ml-20 mt-30">Summary</h4>
+        <div class="row mt-50">
+          <div class="col text-center">
+              <h4>设备总量</h4>
+              <h4 class="color1 mt-20">50</h4>
+            </div>
             <div class="col text-center">
-                <h4>设备总量</h4>
-                <h4 class="color1">50</h4>
-              </div>
-              <div class="col text-center">
-                  <h4>空间使用率</h4>
-                  <h4 class="color2">60%</h4>
-              </div>
-              <div class="col text-center">
-                  <h4>日报警次数</h4>
-                  <h4 class="color3">12</h4>
-              </div>
-         </div>
+                <h4>空间使用率</h4>
+                <h4 class="color2 mt-20">60%</h4>
+            </div>
+            <div class="col text-center">
+                <h4>日报警次数</h4>
+                <h4 class="color3 mt-20">12</h4>
+            </div>
         </div>
+      </div>
+        <!-- [ngStyle]="{'transform': topFlag ? 'rotate(-180deg)': 'rotate(0deg)'}" -->
+      <div class="pos-btn" (click)="btnOperate()" [ngClass]="{'roate180': topFlag}" >
+        <i class="fa fa-angle-down"  ></i>
+      </div>
   </div>
-  
-  <!-- <div class="row">
-      <div class="col-md-2">
-          aaaaaa
-        </div>
-        <div class="col-md-8">
-          bbbbbbb
-        </div>
-        <div class="col-md-2">
-          ccccc
-        </div>
-  </div> -->
+  <div class="modal-layer" (click)="onModalLayerHandler($event)" [hidden]="layerShowFlag">
+      <div class="equipmentLayer">
+          <div class="row">
+            <div class="col">
+            </div>
+            <div class="col" style="width:80%">
+                F1-12
+            </div>
+            <div class="col">
+             
+            </div>
+          </div>
+          <div class=""></div>
+        </div> 
+  </div>
+   
+
+  <!-- <button type="button" class="btn btn-primary" (click)="openModal(template)" style="position:absolute;bottom:20px;">Create template modal</button> -->
+
+  <ng-template #template>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Modal</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      This is a modal.
+    </div>
+  </ng-template>
   

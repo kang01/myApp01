@@ -7,6 +7,7 @@ import { HomePage } from './home.page';
 import { KonvaModule } from 'ng2-konva';
 import { ModalModule } from 'ngx-bootstrap';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { EquipmentDetailModalComponent } from './modal/equipment.detail.modal.component';
 @NgModule({
   imports: [
     IonicModule,
@@ -17,6 +18,12 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     ModalModule.forRoot(),
     NgbModule
   ],
-  declarations: [HomePage]
+  declarations: [
+    HomePage,
+    EquipmentDetailModalComponent
+  ],
+  entryComponents: [
+    EquipmentDetailModalComponent
+  ]
 })
 export class HomePageModule {}

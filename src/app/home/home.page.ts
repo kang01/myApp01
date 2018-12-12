@@ -1,4 +1,4 @@
-import { Component,EventEmitter, ViewChild, TemplateRef, ElementRef } from '@angular/core';
+import { Component,EventEmitter, ViewChild, TemplateRef, ElementRef, OnInit } from '@angular/core';
 import { of, Observable, BehaviorSubject } from 'rxjs';
 import { KonvaComponent } from 'ng2-konva';
 import { AlertController } from '@ionic/angular';
@@ -6,6 +6,7 @@ import { ModalController } from '@ionic/angular';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service'
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { EquipmentDetailModalComponent } from './modal/equipment.detail.modal.component';
 
 
 
@@ -21,6 +22,8 @@ export class HomePage {
     stage;
     containerEl;
     selectedFloor = "F1";
+    topFlag = false;
+    layerShowFlag = true;
     floors = [
         {
             id:4,name:"F4"
@@ -113,15 +116,13 @@ export class HomePage {
         y:-100,
     });
     group = new Konva.Group();
-    constructor(public alertController: AlertController,private modalService: NgbModal,private el:ElementRef) {
+    constructor(public alertController: AlertController,private modalService: BsModalService,private el:ElementRef) {
         
     }
-    async  presentAlert() {
+    async  presentAlert(equipmentCode) {
         const alert = await this.alertController.create({
-            header: 'Alert',
-            subHeader: 'Subtitle',
-            message: 'This is an alert message.',
-            buttons: ['OK']
+            header: equipmentCode,
+            message: 'This is an alert message.'
         });
       
         await alert.present();
@@ -222,107 +223,29 @@ export class HomePage {
         this.stage.add(this.layer);
         
     }
-    distance = {start:0,stop:0};
-    origin;
-    scale = 1;
-    isCanScale = false;
-    handleTouch(e){
-        alert("touch")
-        e.preventDefault();
-        switch(e.type) {
-            case 'touchstart':
-                if (e.touches.length > 1) {
-                     this.distance.start = this.getDistance({
-                         x: e.touches[0].screenX, 
-                         y: e.touches[0].screenY  
-                    }, {
-                         x: e.touches[1].screenX, 
-                         y: e.touches[1].screenY
-                     });
-                 }
-                break;
-            case 'touchmove':
-                if (e.touches.length === 2) {
-                     this.origin = this.getOrigin({
-                        x: e.touches[0].pageX, 
-                        y: e.touches[0].pageY
-                    }, {
-                        x: e.touches[1].pageX, 
-                        y: e.touches[1].pageY
-                    });
-                    this.distance.stop = this.getDistance({
-                         x: e.touches[0].screenX, 
-                         y: e.touches[0].screenY  
-                    }, {
-                         x: e.touches[1].screenX, 
-                         y: e.touches[1].screenY
-                     });
-                     this.scale = this.distance.stop / this.distance.start;
-                     this.isCanScale = true;
-                     this.setScaleAnimation(this.scale, true);
-                 }
-                break;
-            case 'touchend':
-                this.scale = 1;
-                this.setScaleAnimation(this.scale,false);
-                break;
-            case 'touchcancel':
-                this.scale = 1;
-                this.setScaleAnimation(this.scale,false);
-                break;
-            default:;
-        }
+    btnOperate(){
+        this.topFlag = !this.topFlag;
     }
-    getOrigin(first, second) {
-        return {
-            x: (first.x + second.x) / 2,
-            y: (first.y + second.y) / 2
-        };
+    onModalLayerHandler(e){
+        console.log(e.target);
+        this.layerShowFlag = true;
     }
-    getDistance(start, stop) {
-        return Math.sqrt(Math.pow((stop.x - start.x), 2) + Math.pow((stop.y - start.y), 2));
-    }
-    setScaleAnimation(scale, animation) {
-        var transition_animation = '';
-        var x, y;
-        if (!this.isCanScale) {
-            return;
-        }
-        this.isCanScale = false;
-        if (animation) {
-            transition_animation = 'none';
-        } else {
-            transition_animation = this.vendors.TRANSFORM_PROPERTY + ' 0.3s ease-out';
-        }
-        this.containerEl.style[this.vendors.TRANSITION] = transition_animation;
-        x = this.origin.x + (-this.origin.x) * scale;
-        y = this.origin.y + (-this.origin.y) * scale;
-        
-        this.containerEl.style[this.vendors.TRANSFORM] = 'matrix(' + scale + ', 0, 0, ' + scale + ', ' + x + ', ' + y +  ')';
-    }
-    vendors = this.vendor();
-    vendor() {
-        var TRANSITION = 'transition';
-        var TRANSITION_END = 'transitionend';
-        var TRANSFORM = 'transform';
-        var TRANSFORM_PROPERTY = 'transform';
-        var TRANSITION_PROPERTY = 'transition';
-        
-        if (typeof document.body.style.webkitTransform !== undefined) {
-            TRANSFORM = 'webkitTransform';
-            TRANSITION = 'webkitTransition';
-            TRANSITION_END = 'webkitTransitionEnd';
-            TRANSFORM_PROPERTY = '-webkit-transform';
-            TRANSITION_PROPERTY = '-webkit-transition';
-        }
-        return {
-            TRANSFORM: TRANSFORM,
-            TRANSITION: TRANSITION,
-            TRANSITION_END: TRANSITION_END,
-            TRANSFORM_PROPERTY: TRANSFORM_PROPERTY,
-            TRANSITION_PROPERTY: TRANSITION_PROPERTY
-        };
-    }
+    openModal(template: TemplateRef<any>) {
+        this.modalRef = this.modalService.show(template);
+      }
+    // openModalWithComponent() {
+    //     const initialState = {
+    //         list: [
+    //         'Open a modal with component',
+    //         'Pass your data',
+    //         'Do something else',
+    //         '...'
+    //         ],
+    //         title: 'Modal with component'
+    //     };
+    //     this.modalRef = this.modalService.show(EquipmentDetailModalComponent);
+    //     this.modalRef.content.closeBtnName = 'Close';
+    // }
     ngOnInit(){
         this.containerEl = this.el.nativeElement.querySelector('#container')
         this.stage = new Konva.Stage({
@@ -337,33 +260,34 @@ export class HomePage {
         this.drawEquipment(this.selectedFloor);
         this.stage.add(this.layer);
 
-        this.group.on('hold', function(evt) {
-            var shape = evt.target;
-            document.body.style.cursor = 'pointer';
-            shape.scaleX(1.2);
-            shape.scaleY(1.2);
-            this.layer.draw();
-        });
-        this.group.on('mouseout', function(evt) {
-            var shape = evt.target;
-            document.body.style.cursor = 'default';
-            shape.scaleX(1);
-            shape.scaleY(1);
-            this.layer.draw();
-        });
+        // this.layer.on('hold', function(evt) {
+        //     var shape = evt.target;
+        //     document.body.style.cursor = 'pointer';
+        //     shape.scaleX(1.2);
+        //     shape.scaleY(1.2);
+        //     this.layer.draw();
+        // });
+        // this.layer.on('mouseout', function(evt) {
+        //     var shape = evt.target;
+        //     document.body.style.cursor = 'default';
+        //     shape.scaleX(1);
+        //     shape.scaleY(1);
+        //     this.layer.draw();
+        // });
         var self = this;
-        this.group.on('tap', function(evt) {
+        this.layer.on('tap', function(evt) {
             console.log(evt.target.attrs.code);
-            // alert("点击我！");
-            self.presentAlert();
+            var equipmentCode = evt.target.attrs.code;
+            if(equipmentCode){
+                self.layerShowFlag = false;
+                // self.openModal()
+                // self.presentAlert(equipmentCode);
+            }
+            
         });
-        
 
 
-        // this.containerEl.on('touchstart',this.handleTouch);
-        // this.containerEl.on('touchmove',this.handleTouch);
-        // this.containerEl.on('touchend',this.handleTouch);
-        // this.containerEl.on('touchcancel',this.handleTouch);
+       
         var scaleBy = 1.1;
         window.addEventListener('wheel', (e) => {
             e.preventDefault();
@@ -382,9 +306,5 @@ export class HomePage {
             this.stage.batchDraw();
         });
         
-    }
-
-   
-    
-    
+    }  
 }
