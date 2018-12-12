@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { KonvaModule } from 'ng2-konva';
 import { ModalModule } from 'ngx-bootstrap';
+import { TabsModule } from 'ngx-bootstrap';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { EquipmentDetailModalComponent } from './modal/equipment.detail.modal.component';
 @NgModule({
@@ -16,6 +17,7 @@ import { EquipmentDetailModalComponent } from './modal/equipment.detail.modal.co
     RouterModule.forChild([{ path: '', component: HomePage }]),
     KonvaModule,
     ModalModule.forRoot(),
+    TabsModule.forRoot(),
     NgbModule
   ],
   declarations: [

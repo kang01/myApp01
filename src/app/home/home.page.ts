@@ -22,6 +22,7 @@ export class HomePage {
     stage;
     containerEl;
     selectedFloor = "F1";
+    equipmentCode;
     topFlag = false;
     layerShowFlag = true;
     floors = [
@@ -227,8 +228,11 @@ export class HomePage {
         this.topFlag = !this.topFlag;
     }
     onModalLayerHandler(e){
-        console.log($(e.target));
-        this.layerShowFlag = true;
+        var layerClassName = $(e.target).prop("className");
+        if(layerClassName === 'modal-layer'){
+            this.layerShowFlag = true;
+        }
+       
     }
     openModal(template: TemplateRef<any>) {
         this.modalRef = this.modalService.show(template);
@@ -246,6 +250,11 @@ export class HomePage {
     //     this.modalRef = this.modalService.show(EquipmentDetailModalComponent);
     //     this.modalRef.content.closeBtnName = 'Close';
     // }
+    selectedSegment;
+    segmentChanged(ev: any) {
+        console.log('Segment changed', ev);
+        this.selectedSegment = ev.detail.value;
+      }
     ngOnInit(){
         this.containerEl = this.el.nativeElement.querySelector('#container')
         this.stage = new Konva.Stage({
@@ -277,8 +286,8 @@ export class HomePage {
         var self = this;
         this.layer.on('tap', function(evt) {
             console.log(evt.target.attrs.code);
-            var equipmentCode = evt.target.attrs.code;
-            if(equipmentCode){
+            self.equipmentCode = evt.target.attrs.code;
+            if(self.equipmentCode){
                 self.layerShowFlag = false;
                 // self.openModal()
                 // self.presentAlert(equipmentCode);

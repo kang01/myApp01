@@ -53,22 +53,79 @@
       <div class="pos-btn" (click)="btnOperate()" [ngClass]="{'roate180': topFlag}" >
         <i class="fa fa-angle-down"  ></i>
       </div>
-  </div>
-  <div class="modal-layer" (click)="onModalLayerHandler($event)" [hidden]="layerShowFlag">
-      <div class="equipmentLayer">
-          <div class="row">
-            <div class="col">
-            </div>
-            <div class="col" style="width:80%">
-                F1-12
-            </div>
-            <div class="col">
+
+      <div class="modal-layer" (click)="onModalLayerHandler($event)" [hidden]="layerShowFlag">
+        <div class="equipmentLayer">
+           <div class="row m-0 p-20 line-bottom">
              
-            </div>
+                <div class="col-md-4 pl-0">
+                    <h4 class="color1 fs60">{{equipmentCode}}</h4>
+                    <h6 class="">SN:1234567890123</h6>
+                    <h6 class="">MO:906-ULTS</h6>
+                    <h6 class="">TN:1234567890123</h6>
+                    <h6 class="">ST:运行中</h6>
+                </div>
+                <div class="col-md-8 equipment-chart boxShadow"></div>
+             
+           </div>
+           <div class="row m-0">
+            
+                <ion-segment (ionChange)="segmentChanged($event)">
+                    <ion-segment-button value="1">
+                      使用情况
+                    </ion-segment-button>
+                    <ion-segment-button value="2">
+                      设备情况
+                    </ion-segment-button>
+                    <ion-segment-button value="3">
+                      附件
+                    </ion-segment-button>
+                    <ion-segment-button value="4">
+                      报警
+                    </ion-segment-button>
+                  </ion-segment>
+               
+            <!-- <div>
+              <tabset>
+                <tab heading="使用情况" id="tab1">
+                  
+                </tab>
+                <tab heading="设备情况">Basic content 1</tab>
+                <tab heading="附件">Basic content 2</tab>
+                <tab heading="报警">Basic content 2</tab>
+              </tabset>
+            </div> -->
+           </div>
+           <div [ngSwitch]="selectedSegment">
+              <div *ngSwitchCase="1">
+                  苹果显示，如果要默认显示一个就把默认的那个设置一个初始值比如要默认显示苹果就把苹果的value值设置成change也就是说，在定义change变量的时候，需要把哪个设置为默认显示就把哪个的value值赋值给change作为初始值 public change="pie";
+              </div>
+              <div *ngSwitchCase="2">
+                  <ion-item href="#" class="activated">
+                      <ion-icon name="wifi" slot="start"></ion-icon>
+                      <ion-label>Card Link Item 1 .activated</ion-label>
+                    </ion-item>
+                  
+                    <ion-item href="#">
+                      <ion-icon name="wine" slot="start"></ion-icon>
+                      <ion-label>Card Link Item 2</ion-label>
+                    </ion-item>
+                  
+                    <ion-item class="activated">
+                      <ion-icon name="warning" slot="start"></ion-icon>
+                      <ion-label>Card Button Item 1 .activated</ion-label>
+                    </ion-item>
+                  
+                    <ion-item>
+                      <ion-icon name="walk" slot="start"></ion-icon>
+                      <ion-label>Card Button Item 2</ion-label>
+                    </ion-item>
+              </div>
           </div>
-          <div class=""></div>
-        </div> 
+          </div> 
+    </div>
   </div>
+  
    
 
   <!-- <button type="button" class="btn btn-primary" (click)="openModal(template)" style="position:absolute;bottom:20px;">Create template modal</button> -->
