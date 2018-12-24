@@ -8,7 +8,10 @@ import { KonvaModule } from 'ng2-konva';
 import { ModalModule } from 'ngx-bootstrap';
 import { TabsModule } from 'ngx-bootstrap';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgxGaugeModule } from 'ngx-gauge';
 import { EquipmentDetailModalComponent } from './modal/equipment.detail.modal.component';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+
 @NgModule({
   imports: [
     IonicModule,
@@ -18,7 +21,8 @@ import { EquipmentDetailModalComponent } from './modal/equipment.detail.modal.co
     KonvaModule,
     ModalModule.forRoot(),
     TabsModule.forRoot(),
-    NgbModule
+    NgbModule,
+    NgxGaugeModule
   ],
   declarations: [
     HomePage,
@@ -26,6 +30,9 @@ import { EquipmentDetailModalComponent } from './modal/equipment.detail.modal.co
   ],
   entryComponents: [
     EquipmentDetailModalComponent
+  ],
+  providers: [
+    FileOpener
   ]
 })
 export class HomePageModule {}

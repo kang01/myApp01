@@ -1,144 +1,355 @@
-<ion-header>
+<!-- <ion-header>
+  <ion-toolbar> 
+    <ion-title>样本库 - {{ selectedFloor }}</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-header color="primary">
   <ion-toolbar>
-    <ion-title>样本库 - {{selectedFloor}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button>
+          <ion-chip>
+              <ion-avatar>
+                <img src="/assets/images/aaaa.png">
+              </ion-avatar>
+              <ion-label>张三</ion-label>
+            </ion-chip>
+      </ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      样本库 - {{ selectedFloor }}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+          <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
+
+<!-- <ion-searchbar ></ion-searchbar> -->
+
 <ion-content>
-  
+   
   <div id="container" style="background-color:#2A373F;"></div>
-  <!-- <ion-button id="basic" expand="block" (click)="presentAlert()">Alert</ion-button> -->
+</ion-content>
 
-  <!-- fab placed to the bottom start -->
-  <!-- <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="arrow-dropup"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-list side="top">
-      <ion-fab-button onclick="handleClick()">F1</ion-fab-button>
-      <ion-fab-button>F2</ion-fab-button>
-      <ion-fab-button>F3</ion-fab-button>
-      <ion-fab-button>F4</ion-fab-button>
-    </ion-fab-list> 
-  </ion-fab> -->
-  <!-- <ion-virtual-scroll  direction="xy" class="msg-file" style="height:100%" zooming="true" min-zoom="1" max-zoom="2" overflow-scroll="false">
-      <img ng-src="/assets/images/aaaa.png" class="msg-file"/>
-    </ion-virtual-scroll> -->
-  </ion-content>
-  <div class="content-page">
-      <div class="floor-show">
-          <ul>
-            <li (click)="selectFloor(item.name)" [ngClass]="{'color2': item.name === selectedFloor}" *ngFor="let item of floors">
-              <h4 class="text-center">{{item.name}}</h4>
-            </li>
-          </ul>
+<div class="content-page">
+  <div class="floor-show">
+    <ul>
+      <li
+        (click)="selectFloor(item.name)"
+        [ngClass]="{ color2: item.name === selectedFloor }"
+        *ngFor="let item of floors"
+      >
+        <h4 class="text-center">{{ item.name }}</h4>
+      </li>
+    </ul>
+  </div>
+  <div class="info-show" [ngStyle]="{ bottom: topFlag ? '-240px' : '40px' }">
+    <h4 class="color2 ml-20 mt-30">Summary</h4>
+    <div class="row mt-50">
+      <div class="col text-center">
+        <h4>设备总量</h4>
+        <h4 class="color1 mt-20">50</h4>
       </div>
-      <div class="info-show" [ngStyle]="{'bottom': topFlag ? '-240px': '40px'}">
-        <h4 class="color2 ml-20 mt-30">Summary</h4>
-        <div class="row mt-50">
-          <div class="col text-center">
-              <h4>设备总量</h4>
-              <h4 class="color1 mt-20">50</h4>
-            </div>
-            <div class="col text-center">
-                <h4>空间使用率</h4>
-                <h4 class="color2 mt-20">60%</h4>
-            </div>
-            <div class="col text-center">
-                <h4>日报警次数</h4>
-                <h4 class="color3 mt-20">12</h4>
-            </div>
+      <div class="col text-center">
+        <h4>空间使用率</h4>
+        <h4 class="color2 mt-20">60%</h4>
+      </div>
+      <div class="col text-center">
+        <h4>日报警次数</h4>
+        <h4 class="color3 mt-20">12</h4>
+      </div>
+    </div>
+  </div>
+  <!--
+    [ngStyle]="{'transform': topFlag ? 'rotate(-180deg)': 'rotate(0deg)'}"
+  -->
+  <div class="pos-btn" (click)="btnOperate()" [ngClass]="{ roate180: topFlag }">
+    <i class="fa fa-angle-down"></i>
+  </div>
+
+  <div
+    class="modal-layer"
+    (click)="onModalLayerHandler($event)"
+    [hidden]="layerShowFlag"
+  >
+    <div class="equipmentLayer bg2">
+      <div class="row m-0 p-20 line-bottom bg1">
+        <div class="col-md-4 pl-0">
+          <h4 class="color1 fs60">{{ equipmentCode }}</h4>
+          <h6 class="">SN:1234567890123</h6>
+          <h6 class="">MO:906-ULTS</h6>
+          <h6 class="">TN:1234567890123</h6>
+          <h6 class="">ST:运行中</h6>
         </div>
+        <div class="col-md-8 equipment-chart boxShadow"></div>
       </div>
-        <!-- [ngStyle]="{'transform': topFlag ? 'rotate(-180deg)': 'rotate(0deg)'}" -->
-      <div class="pos-btn" (click)="btnOperate()" [ngClass]="{'roate180': topFlag}" >
-        <i class="fa fa-angle-down"  ></i>
-      </div>
+      <div class="equipmentLayerBody">
+        <div class="row m-0">
+          <ion-segment (ionChange)="segmentChanged($event)">
+            <ion-segment-button value="1" checked>
+              使用情况
+            </ion-segment-button>
+            <ion-segment-button value="2"> 设备情况 </ion-segment-button>
+            <ion-segment-button value="3"> 附件 </ion-segment-button>
+            <ion-segment-button value="4"> 报警 </ion-segment-button>
+          </ion-segment>
 
-      <div class="modal-layer" (click)="onModalLayerHandler($event)" [hidden]="layerShowFlag">
-        <div class="equipmentLayer">
-           <div class="row m-0 p-20 line-bottom">
-             
-                <div class="col-md-4 pl-0">
-                    <h4 class="color1 fs60">{{equipmentCode}}</h4>
-                    <h6 class="">SN:1234567890123</h6>
-                    <h6 class="">MO:906-ULTS</h6>
-                    <h6 class="">TN:1234567890123</h6>
-                    <h6 class="">ST:运行中</h6>
-                </div>
-                <div class="col-md-8 equipment-chart boxShadow"></div>
-             
-           </div>
-           <div class="row m-0">
-            
-                <ion-segment (ionChange)="segmentChanged($event)">
-                    <ion-segment-button value="1">
-                      使用情况
-                    </ion-segment-button>
-                    <ion-segment-button value="2">
-                      设备情况
-                    </ion-segment-button>
-                    <ion-segment-button value="3">
-                      附件
-                    </ion-segment-button>
-                    <ion-segment-button value="4">
-                      报警
-                    </ion-segment-button>
-                  </ion-segment>
-               
-            <!-- <div>
+          <!--
+            <div>
               <tabset>
                 <tab heading="使用情况" id="tab1">
-                  
+
                 </tab>
                 <tab heading="设备情况">Basic content 1</tab>
                 <tab heading="附件">Basic content 2</tab>
                 <tab heading="报警">Basic content 2</tab>
               </tabset>
-            </div> -->
-           </div>
-           <div [ngSwitch]="selectedSegment">
-              <div *ngSwitchCase="1">
-                  苹果显示，如果要默认显示一个就把默认的那个设置一个初始值比如要默认显示苹果就把苹果的value值设置成change也就是说，在定义change变量的时候，需要把哪个设置为默认显示就把哪个的value值赋值给change作为初始值 public change="pie";
-              </div>
-              <div *ngSwitchCase="2">
-                  <ion-item href="#" class="activated">
-                      <ion-icon name="wifi" slot="start"></ion-icon>
-                      <ion-label>Card Link Item 1 .activated</ion-label>
-                    </ion-item>
-                  
-                    <ion-item href="#">
-                      <ion-icon name="wine" slot="start"></ion-icon>
-                      <ion-label>Card Link Item 2</ion-label>
-                    </ion-item>
-                  
-                    <ion-item class="activated">
-                      <ion-icon name="warning" slot="start"></ion-icon>
-                      <ion-label>Card Button Item 1 .activated</ion-label>
-                    </ion-item>
-                  
-                    <ion-item>
-                      <ion-icon name="walk" slot="start"></ion-icon>
-                      <ion-label>Card Button Item 2</ion-label>
-                    </ion-item>
-              </div>
+            </div>
+          -->
+        </div>
+        <div [ngSwitch]="selectedSegment">
+          <div *ngSwitchCase="1" class="">
+            <ion-grid>
+              <ion-row class="line-bottom2">
+                <ion-col size="2">
+                  <ngx-gauge
+                    [type]="gaugeType"
+                    [size]="100"
+                    [thick]="8"
+                    [value]="35"
+                    [append]="gaugeAppendText"
+                  >
+                  </ngx-gauge>
+                </ion-col>
+                <ion-col size="10">
+                  <ion-row>
+                    <ion-col>
+                      <div>&nbsp;</div>
+                      <div class="color2"><h4>冻存区：S01</h4></div>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col> <div>空位：3</div> </ion-col>
+                    <ion-col> <div>占位：15</div> </ion-col>
+                    <ion-col> <div>盒子：100</div> </ion-col>
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+              <ion-row class="line-bottom2">
+                <ion-col size="2">
+                  <ngx-gauge
+                    [type]="gaugeType"
+                    [size]="100"
+                    [thick]="8"
+                    [value]="86"
+                    [append]="gaugeAppendText"
+                  >
+                  </ngx-gauge>
+                </ion-col>
+                <ion-col size="10">
+                  <ion-row>
+                    <ion-col>
+                      <div>&nbsp;</div>
+                      <div class="color2"><h4>冻存区：S02</h4></div>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col> <div>空位：3</div> </ion-col>
+                    <ion-col> <div>占位：15</div> </ion-col>
+                    <ion-col> <div>盒子：100</div> </ion-col>
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+              <ion-row class="line-bottom2">
+                <ion-col size="2">
+                  <ngx-gauge
+                    [type]="gaugeType"
+                    [size]="100"
+                    [thick]="8"
+                    [value]="47"
+                    [append]="gaugeAppendText"
+                  >
+                  </ngx-gauge>
+                </ion-col>
+                <ion-col size="10">
+                  <ion-row>
+                    <ion-col>
+                      <div>&nbsp;</div>
+                      <div class="color2"><h4>冻存区：S03</h4></div>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col> <div>空位：3</div> </ion-col>
+                    <ion-col> <div>占位：15</div> </ion-col>
+                    <ion-col> <div>盒子：100</div> </ion-col>
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
           </div>
-          </div> 
+          <div *ngSwitchCase="2">
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <div><h6 class="color1">设备编码</h6></div>
+                  <div>123456565</div>
+                </ion-col>
+                <ion-col>
+                  <div><h6 class="color1">当前库位</h6></div>
+                  <div>F1-22</div>
+                </ion-col>
+                <ion-col>
+                  <div><h6 class="color1">设备状态</h6></div>
+                  <div>运行中</div>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <div><h6 class="color1">设备型号</h6></div>
+                  <div>123456565</div>
+                </ion-col>
+                <ion-col>
+                  <div><h6 class="color1">设备分组</h6></div>
+                  <div>F1-22</div>
+                </ion-col>
+                <ion-col>
+                  <div><h6 class="color1">设备归属</h6></div>
+                  <div>运行中</div>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <div><h6 class="color1">温控探头</h6></div>
+                  <div>123456565</div>
+                </ion-col>
+                <ion-col>
+                  <div><h6 class="color1">报警温度</h6></div>
+                  <div>F1-22</div>
+                </ion-col>
+                <ion-col>
+                  <div><h6 class="color1">工作温度</h6></div>
+                  <div>运行中</div>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="8">
+                  <div><h6 class="color1">生产厂家</h6></div>
+                  <div>123456565</div>
+                </ion-col>
+                <ion-col size="4">
+                  <div><h6 class="color1">联系电话</h6></div>
+                  <div>F1-22</div>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <div><h6 class="color1">联系地址</h6></div>
+                  <div>123456565</div>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <div><h6 class="color1">出厂日期</h6></div>
+                  <div>123456565</div>
+                </ion-col>
+                <ion-col>
+                  <div><h6 class="color1">采购日期</h6></div>
+                  <div>F1-22</div>
+                </ion-col>
+                <ion-col>
+                  <div><h6 class="color1">启用日期</h6></div>
+                  <div>运行中</div>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="4">
+                  <div><h6 class="color1">报废年限</h6></div>
+                  <div>123456565</div>
+                </ion-col>
+                <ion-col size="4">
+                  <div><h6 class="color1">保养周期</h6></div>
+                  <div>F1-22</div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+          <div *ngSwitchCase="3">
+            <ion-grid>
+              <ion-row class="line-bottom2">
+                <ion-col size="2" class="fs60 text-center color2">
+                  <i class="fa fa-file-pdf-o"></i>
+                </ion-col>
+                <ion-col size="10">
+                  <ion-row class="color2">
+                    <ion-col>
+                      <h4>
+                        <a (click)="fileOpen()">新设备插电测试记录.xlsx</a>
+                      </h4>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col>
+                      <div>备注备注备注备注备注备注备注备注备</div>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+          <div *ngSwitchCase="4">
+            <ion-grid>
+              <ion-row
+                class="line-bottom2"
+                (click)="openModal()"
+                nav-direction="forward"
+              >
+                <ion-col size="2" class="fs50 text-center color3">
+                  <i class="fa fa-fire"></i>
+                </ion-col>
+                <ion-col size="9">
+                  <ion-row class="color3">
+                    <ion-col size="8">
+                      <h4>20181212 08:00 超温报警</h4>
+                    </ion-col>
+                    <ion-col size="4">
+                      <h4 class="text-right">未处理</h4>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col>
+                      <div>备注备注备注备注备注备注备注备注备</div>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+                <ion-col size="1">
+                  <ion-row>
+                    <ion-col>
+                      <div class="text-right fs30 mt-5">
+                        <i class="fa fa-angle-right"></i>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+              <!--
+                <ion-item href="#" class="activated">
+                  <ion-icon name="wifi" slot="start"></ion-icon>
+                  <ion-label>Card Link Item 1 .activated</ion-label>
+                </ion-item>
+
+                <ion-item href="#">
+                  <ion-icon name="wine" slot="start"></ion-icon>
+                  <ion-label>Card Link Item 2</ion-label>
+                </ion-item>
+              -->
+            </ion-grid>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  
-   
-
-  <!-- <button type="button" class="btn btn-primary" (click)="openModal(template)" style="position:absolute;bottom:20px;">Create template modal</button> -->
-
-  <ng-template #template>
-    <div class="modal-header">
-      <h4 class="modal-title pull-left">Modal</h4>
-      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      This is a modal.
-    </div>
-  </ng-template>
-  
+</div>

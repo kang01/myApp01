@@ -9,7 +9,8 @@ import { KonvaModule } from 'ng2-konva';
 import { KonvaImageDirective } from '../services/konva.self.image.directive';
 import { ModalModule } from 'ngx-bootstrap';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { EquipmentDetailModalComponent } from '../home/modal/equipment.detail.modal.component';
+// import { Camera } from '@ionic-native/camera';
+// import { EquipmentDetailModalComponent } from '../home/modal/equipment.detail.modal.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,10 @@ import { EquipmentDetailModalComponent } from '../home/modal/equipment.detail.mo
   ],
   declarations: [AboutPage,KonvaImageDirective],
   entryComponents: [
-    EquipmentDetailModalComponent
+    
+  ],
+  providers:[
+    // Camera
   ]
 })
 export class AboutPageModule {}

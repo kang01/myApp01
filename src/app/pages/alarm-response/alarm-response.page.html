@@ -1,0 +1,107 @@
+<ion-header color="primary">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/"></ion-back-button>
+      </ion-buttons>
+      <ion-title>报警信息</ion-title>
+      <ion-buttons slot="end">
+        <ion-button>
+          <!-- <ion-icon slot="icon-only" name="save"></ion-icon> -->
+          <ion-icon name="brush"></ion-icon>
+        </ion-button>
+        <ion-button>
+          <ion-icon slot="icon-only" name="save"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-card>
+              <ion-item> <ion-label>报警原因</ion-label> </ion-item>
+              <!-- <ion-item *ngFor="let r of reason">
+                <ion-checkbox slot="start" [(ngModel)]="r.isChecked"></ion-checkbox>
+                <ion-label>{{ r.label }}</ion-label>
+              </ion-item> -->
+              
+            </ion-card>
+          </ion-col>
+          <ion-col>
+            <ion-card>
+              <ion-item> <ion-label>响应措施</ion-label> </ion-item>
+              <ion-item *ngFor="let m of measures">
+                  <ion-checkbox slot="start" [(ngModel)]="m.isChecked"></ion-checkbox>
+                  <ion-label>{{ m.label }}</ion-label>
+                </ion-item>
+            </ion-card>
+            <ion-card>
+              <ion-item>
+                <ion-label>相关设备</ion-label>
+                <ion-buttons slot="end">
+                  <ion-button>
+                    <ion-icon slot="icon-only" name="add"></ion-icon>
+                  </ion-button>
+                </ion-buttons>
+              </ion-item>
+              <ion-item>
+                <ion-textarea
+                  rows="8"
+                  placeholder="Enter more information here..."
+                ></ion-textarea>
+              </ion-item>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-card>
+              <ion-item> <ion-label>备注</ion-label> </ion-item>
+              <ion-item>
+                <ion-textarea
+                  rows="8"
+                  placeholder="这里是备注，可以随便写点什么。字符控制在255个汉字以内……"
+                ></ion-textarea>
+              </ion-item>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="4">
+              <ion-card>
+                  <ion-item> <ion-label>现场图片01</ion-label> </ion-item>
+                  <ion-item>
+                    <img src="assets/images/aaaa.png">
+                  </ion-item>
+              </ion-card>
+          </ion-col>
+          <ion-col size="4">
+              <ion-card>
+                  <ion-item> <ion-label>现场图片01</ion-label> </ion-item>
+                  <ion-item>
+                    <img src="/assets/images/aaaa.png">
+                  </ion-item>
+              </ion-card>
+          </ion-col>
+          <ion-col size="4">
+              <ion-card>
+                  <ion-item> <ion-label>现场图片01</ion-label> </ion-item>
+                  <ion-item>
+                    <img src="/assets/images/aaaa.png">
+                  </ion-item>
+              </ion-card>
+          </ion-col>
+          <ion-col size="4">
+              <ion-card>
+                  <ion-item> <ion-label>现场图片01</ion-label> </ion-item>
+                  <ion-item>
+                    <img src="/assets/images/aaaa.png">
+                  </ion-item>
+              </ion-card>
+          </ion-col>
+         
+        </ion-row>
+      </ion-grid>
+</ion-content>

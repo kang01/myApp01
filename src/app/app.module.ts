@@ -8,18 +8,29 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { File } from '@ionic-native/file/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+import { EquipmentInfoPage } from './pages/equipment-info/equipment-info.page';
+import { MonitoringPageModule } from './pages/monitoring/monitoring.module';
+
+
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent,EquipmentInfoPage],
+  entryComponents: [EquipmentInfoPage],
   imports: [
       BrowserModule,
       IonicModule.forRoot(),
-      AppRoutingModule
+      AppRoutingModule,
+      MonitoringPageModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    FileOpener,
+    File,
+    FileTransfer,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

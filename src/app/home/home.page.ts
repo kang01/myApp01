@@ -1,13 +1,17 @@
 import { Component,EventEmitter, ViewChild, TemplateRef, ElementRef, OnInit } from '@angular/core';
 import { of, Observable, BehaviorSubject } from 'rxjs';
 import { KonvaComponent } from 'ng2-konva';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service'
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { EquipmentDetailModalComponent } from './modal/equipment.detail.modal.component';
-import * as $ from 'jquery'   
+import * as $ from 'jquery'  
+import { FileOpener } from '@ionic-native/file-opener/ngx'; 
+import { File } from '@ionic-native/file/ngx';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { EquipmentInfoPage } from '../pages/equipment-info/equipment-info.page';
 
 
 declare const Konva: any;
@@ -112,14 +116,27 @@ export class HomePage {
     modalRef: BsModalRef;
     width = window.innerWidth;
     height = window.innerHeight;
-    
+    gaugeType = "full";
+    gaugeValue = 36;
+    gaugeLabel = "Speed";
+    gaugeAppendText = "%";
     layer = new Konva.Layer({
         y:-100,
     });
     group = new Konva.Group();
-    constructor(public alertController: AlertController,private modalService: BsModalService,private el:ElementRef) {
+    constructor(
+        public alertController: AlertController,
+        private modalService: BsModalService,
+        private el:ElementRef,
+        private fileOpener: FileOpener,
+        private file: File,
+        private transfer: FileTransfer,
+        public modalController: ModalController,
+        private nav: NavController
+        ) {
         
     }
+    fileTransfer: FileTransferObject = this.transfer.create();
     async  presentAlert(equipmentCode) {
         const alert = await this.alertController.create({
             header: equipmentCode,
@@ -234,26 +251,38 @@ export class HomePage {
         }
        
     }
-    openModal(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.show(template);
-      }
-    // openModalWithComponent() {
-    //     const initialState = {
-    //         list: [
-    //         'Open a modal with component',
-    //         'Pass your data',
-    //         'Do something else',
-    //         '...'
-    //         ],
-    //         title: 'Modal with component'
-    //     };
-    //     this.modalRef = this.modalService.show(EquipmentDetailModalComponent);
-    //     this.modalRef.content.closeBtnName = 'Close';
-    // }
+    
     selectedSegment;
     segmentChanged(ev: any) {
         console.log('Segment changed', ev);
         this.selectedSegment = ev.detail.value;
+    }
+    fileOpen(){
+        this.fileOpener.open('/templates/file.pdf', 'application/pdf')
+        .then(() => console.log('File is opened'))
+        .catch(e => console.log('Error opening file', e));
+    }
+    downLoad(){
+        const url =  encodeURI('/assets/templates/file.pdf');
+
+        this.fileTransfer.download(url, this.file.externalRootDirectory    + 'file.pdf',true).then((entry) => {
+            console.log('download complete: ' + entry.toURL());
+          }, (error) => {
+            // handle error
+            console.log(error);
+          });
+    }
+    openModal(){
+        // this.presentModal();
+        // this.nav.navigateForward("/tabs/(contact:contact)");
+        this.nav.navigateForward("monitoring");
+    }
+    async presentModal() {
+        const modal = await this.modalController.create({
+          component: EquipmentInfoPage,
+          componentProps: { value: 123 }
+        });
+        return await modal.present();
       }
     ngOnInit(){
         this.containerEl = this.el.nativeElement.querySelector('#container')
@@ -289,8 +318,8 @@ export class HomePage {
             self.equipmentCode = evt.target.attrs.code;
             if(self.equipmentCode){
                 self.layerShowFlag = false;
-                // self.openModal()
-                // self.presentAlert(equipmentCode);
+                
+                // self.presentModal();
             }
             
         });

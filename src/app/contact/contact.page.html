@@ -1,24 +1,39 @@
+<!--
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Contact
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <ion-list-header>
+        <ion-label>
+          Follow us on Twitter
+        </ion-label>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>
+          <ion-icon name="logo-ionic" slot="start"></ion-icon>
+          @ionicframework
+        </ion-label>
+      </ion-item>
+    </ion-list>
+    <div id="container1"></div>
+  </ion-content>
+-->
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Contact
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Second Page</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-list-header>
-      <ion-label>
-        Follow us on Twitter
-      </ion-label>
-    </ion-list-header>
-    <ion-item>
-      <ion-label>
-        <ion-icon name="logo-ionic" slot="start"></ion-icon>
-        @ionicframework
-      </ion-label>
-    </ion-item>
-  </ion-list>
-  <div id="container1"></div>
-</ion-content>
+   My Id is: {{ passedId }} 
+   <ion-button expand="full" (click)="openModal()">Full Button</ion-button>
+  </ion-content>

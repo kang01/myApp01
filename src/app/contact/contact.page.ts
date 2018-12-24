@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { EquipmentInfoPage } from '../pages/equipment-info/equipment-info.page';
 declare const Konva: any;
 declare const gifler: any;
 @Component({
@@ -7,41 +9,46 @@ declare const gifler: any;
   styleUrls: ['contact.page.scss']
 })
 export class ContactPage {
-
+  constructor(public modalController: ModalController) {}
+  openModal(){
+    this.presentModal();
+  }
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: EquipmentInfoPage,
+      componentProps: { value: 123 }
+    });
+    return await modal.present();
+  }
   ngOnInit(){
-    var width = window.innerWidth;
-    var height = window.innerHeight;
+    // var width = window.innerWidth;
+    // var height = window.innerHeight;
 
-    var stage = new Konva.Stage({
-        container: 'container1',
-        width: width,
-        height: height
-    });
+    // var stage = new Konva.Stage({
+    //     container: 'container1',
+    //     width: width,
+    //     height: height
+    // });
 
-    var layer = new Konva.Layer();
-    stage.add(layer);
+    // var layer = new Konva.Layer();
+    // stage.add(layer);
 
 
-    var canvas = document.createElement('canvas');
-    // use external library to parse and draw gif animation
-    function onDrawFrame(ctx, frame) {
-        // update canvas size
-        canvas.width = frame.width;
-        canvas.height = frame.height;
-        // update canvas that we are using for Konva.Image
-        ctx.drawImage(frame.buffer, 0, 0);
-        // redraw the layer
-        layer.draw();
-    }
+    // var canvas = document.createElement('canvas');
+    // function onDrawFrame(ctx, frame) {
+    //     canvas.width = frame.width;
+    //     canvas.height = frame.height;
+    //     ctx.drawImage(frame.buffer, 0, 0);
+    //     layer.draw();
+    // }
 
-    new gifler('/assets/images/1123.gif')
-        .frames(canvas, onDrawFrame);
+    // new gifler('/assets/images/1123.gif')
+    //     .frames(canvas, onDrawFrame);
 
-    // draw resulted canvas into the stage as Konva.Image
-    var image = new Konva.Image({
-        image: canvas
-    });
-    layer.add(image);
+    // var image = new Konva.Image({
+    //     image: canvas
+    // });
+    // layer.add(image);
 
   }
 }

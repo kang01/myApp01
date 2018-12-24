@@ -1,6 +1,18 @@
-
+ul{
+    padding: 0;
+    margin: 0;
+}
+ul li{
+    list-style: none;
+}
+$bg-color1: #B7B7B7;
+$color2:#1F282F;
+$color3:#404B51;
+$color4:#EEA927;
+$color5:#66BF92;
+$color6:#FF4A39;
 .content-page{
-    color: #B7B7B7;
+    color: $bg-color1;
 }
 h4{
     margin: 0;
@@ -9,14 +21,44 @@ h4{
 .line-bottom{
     border-bottom: 1px solid #ccc;
 }
+.line-bottom2{
+    border-bottom: 1px solid $color2;
+}
 .pos-r{
     position: relative;
 }
 .pos-a{
     position:a;
 }
+.fc7{
+    color:$bg-color1;
+}
 .fs60{
     font-size: 60px;
+}
+.fs30{
+    font-size: 30px;
+}
+.fs50{
+    font-size: 50px;
+}
+.color1{
+    color:$color4;
+}
+.color2{
+    color:$color5;
+}
+.color3{
+    color:$color6;
+}
+.fc1{
+    color:$bg-color1 !important;
+}
+.bg1{
+    background-color: $color2;
+}
+.bg2{
+    background-color: $color3;
 }
 .m-0{
     margin: 0;
@@ -27,8 +69,20 @@ h4{
 .mr-0{
     margin-right: 0;
 }
+.mr-10{
+    margin-right: 10px;
+}
+.ml-10{
+    margin-left: 10px;
+}
 .ml-20{
     margin-left: 20px;
+}
+.mt-10{
+    margin-top: 10px;
+}
+.mt-5{
+    margin-top: 5px !important;
 }
 .mt-20{
     margin-top:20px;
@@ -54,22 +108,15 @@ h4{
 .p-20{
     padding: 20px;
 }
-.color2{
-    color:#66BF92
-}
-.color3{
-    color:#FF4A39
-}
-.color1{
-    color:#EEA927
-}
+
+
 .boxShadow{
     box-shadow: 0px 0px 5px rgba(255,255,255,0.5);
 }
 .floor-show{
     position: absolute;
     bottom:220px;
-    background-color: #1F282F;
+    background-color:$color2;
     left: 20px;
     width: 64px;
     border: 1px solid rgba(255,255,255,0.3);
@@ -95,7 +142,8 @@ h4{
     transform: translate(-50%, 0); 
     width: 70%;
     height:240px;
-    background-color: #404B51;border-radius: 4px;
+    background-color: $color3;
+    border-radius: 4px;
     opacity: 0.99;
     box-shadow: 0px 0px 4px rgba(0,0,0,0.5);
     transition: all .2s ease;
@@ -134,12 +182,11 @@ h4{
     width: 90%;
     -webkit-transform: translate(-50%, 0);
     transform: translate(-50%, 0);
-    background-color: #1F282F;
     border-radius: 4px;
     box-shadow: 0 0 5px rgba(255,255,255,.5);
 }
 .equipmentLayer .equipment-chart{
-    background-color: #404B51;
+    background-color:$color3;
     opacity: .7;
     
 }
