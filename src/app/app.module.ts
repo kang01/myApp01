@@ -21,7 +21,10 @@ import { MonitoringPageModule } from './pages/monitoring/monitoring.module';
   entryComponents: [EquipmentInfoPage],
   imports: [
       BrowserModule,
-      IonicModule.forRoot(),
+      IonicModule.forRoot({
+        backButtonText: "",
+        mode:"ios"
+      }),
       AppRoutingModule,
       MonitoringPageModule
   ],

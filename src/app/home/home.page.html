@@ -4,16 +4,18 @@
   </ion-toolbar>
 </ion-header> -->
 
-<ion-header color="primary">
-  <ion-toolbar>
+<ion-header class="bb-header">
+  <ion-toolbar class="bb-toolbar">
     <ion-buttons slot="start">
-      <ion-menu-button>
-          <ion-chip>
+      <ion-menu-button >
+          <!-- <ion-icon color="gray" name="contact"></ion-icon>
+          <ion-label color="gray">张三</ion-label> -->
+          <ion-chip color="twitter" class="bb-chip">
               <ion-avatar>
                 <img src="/assets/images/aaaa.png">
               </ion-avatar>
-              <ion-label>张三</ion-label>
-            </ion-chip>
+              <ion-label color="gray">张三</ion-label>
+            </ion-chip> 
       </ion-menu-button>
     </ion-buttons>
     <ion-title>
@@ -21,7 +23,7 @@
     </ion-title>
     <ion-buttons slot="end">
       <ion-button>
-          <ion-icon slot="icon-only" name="search"></ion-icon>
+          <ion-icon slot="icon-only" name="search" color="gray"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -31,7 +33,6 @@
 <!-- <ion-searchbar ></ion-searchbar> -->
 
 <ion-content>
-   
   <div id="container" style="background-color:#2A373F;"></div>
 </ion-content>
 
@@ -77,7 +78,7 @@
     [hidden]="layerShowFlag"
   >
     <div class="equipmentLayer bg2">
-      <div class="row m-0 p-20 line-bottom bg1">
+      <div class="row m-0 p-20 bg1">
         <div class="col-md-4 pl-0">
           <h4 class="color1 fs60">{{ equipmentCode }}</h4>
           <h6 class="">SN:1234567890123</h6>
@@ -89,7 +90,7 @@
       </div>
       <div class="equipmentLayerBody">
         <div class="row m-0">
-          <ion-segment (ionChange)="segmentChanged($event)">
+          <ion-segment (ionChange)="segmentChanged($event)" class="bb-segment">
             <ion-segment-button value="1" checked>
               使用情况
             </ion-segment-button>

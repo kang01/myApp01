@@ -1,5 +1,5 @@
-<ion-header color="primary">
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar class="bb-toolbar">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
@@ -16,49 +16,49 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-card>
+        <ion-card class="bb-card">
           <ion-item> <ion-label>报警类型</ion-label> </ion-item>
           <ion-item *ngFor="let t of types">
-            <ion-checkbox slot="start" [(ngModel)]="t.isChecked"></ion-checkbox>
+            <ion-checkbox [(ngModel)]="t.isChecked" color="success" mode="md"></ion-checkbox>
             <ion-label>{{ t.label }}</ion-label>
           </ion-item>
         </ion-card>
       </ion-col>
       <ion-col>
-        <ion-card>
+        <ion-card class="bb-card ml-0">
           <ion-item> <ion-label>报警概述</ion-label> </ion-item>
           <ion-item>
-            <ion-label>报告人</ion-label>
+            <ion-label class="opacity6">报告人</ion-label>
             <ion-input  class="text-right"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label>报警日期</ion-label>
+            <ion-label class="opacity6">报警日期</ion-label>
             <ion-datetime
               display-format="YYYY-MM-DD"
               picker-format="YYYY MM DD"
             ></ion-datetime>
           </ion-item>
           <ion-item>
-            <ion-label>报警时间</ion-label>
+            <ion-label class="opacity6">报警时间</ion-label>
             <ion-datetime
               display-format="HH:mm"
               picker-format="HH:mm"
             ></ion-datetime>
           </ion-item>
           <ion-item>
-            <ion-label>当时温度</ion-label>
+            <ion-label class="opacity6">当时温度</ion-label>
             <ion-input  class="text-right"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label>状态</ion-label>
+            <ion-label class="opacity6">状态</ion-label>
             <ion-input  class="text-right"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label>响应人</ion-label>
+            <ion-label class="opacity6">响应人</ion-label>
             <ion-input  class="text-right"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label>响应时长</ion-label>
+            <ion-label class="opacity6">响应时长</ion-label>
             <ion-input  class="text-right" readonly></ion-input>
             <ion-buttons slot="end">
                 <ion-button (click)="alarmResponse()">
@@ -68,11 +68,11 @@
               </ion-buttons>
           </ion-item>
           <ion-item>
-            <ion-label>样本转移</ion-label>
+            <ion-label class="opacity6">样本转移</ion-label>
             <ion-input class="text-right"></ion-input>
           </ion-item>
         </ion-card>
-        <ion-card>
+        <ion-card class="bb-card ml-0">
           <ion-item>
             <ion-label>相关设备</ion-label>
             <ion-buttons slot="end">
@@ -82,9 +82,9 @@
             </ion-buttons>
           </ion-item>
           <ion-item>
-            <ion-textarea
+            <ion-textarea style="height:172px;"
               rows="8"
-              placeholder="Enter more information here..."
+              placeholder="相关设备……"
             ></ion-textarea>
           </ion-item>
         </ion-card>
@@ -92,7 +92,7 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-card>
+        <ion-card class="bb-card mt-0">
           <ion-item> <ion-label>备注</ion-label> </ion-item>
           <ion-item>
             <ion-textarea
@@ -105,7 +105,7 @@
     </ion-row>
     <ion-row>
       <ion-col size="4">
-          <ion-card>
+          <ion-card class="bb-card  mt-0">
               <ion-item> <ion-label>现场图片01</ion-label> </ion-item>
               <ion-item>
                 <img src="assets/images/aaaa.png">
@@ -113,7 +113,7 @@
           </ion-card>
       </ion-col>
       <ion-col size="4">
-          <ion-card>
+          <ion-card class="bb-card  mt-0 ">
               <ion-item> <ion-label>现场图片01</ion-label> </ion-item>
               <ion-item>
                 <img src="/assets/images/aaaa.png">
@@ -121,7 +121,7 @@
           </ion-card>
       </ion-col>
       <ion-col size="4">
-          <ion-card>
+          <ion-card class="bb-card  mt-0">
               <ion-item> <ion-label>现场图片01</ion-label> </ion-item>
               <ion-item>
                 <img src="/assets/images/aaaa.png">
@@ -129,7 +129,7 @@
           </ion-card>
       </ion-col>
       <ion-col size="4">
-          <ion-card>
+          <ion-card class="bb-card  mt-0">
               <ion-item> <ion-label>现场图片01</ion-label> </ion-item>
               <ion-item>
                 <img src="/assets/images/aaaa.png">
